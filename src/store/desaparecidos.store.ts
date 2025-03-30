@@ -14,7 +14,7 @@ export const useDesaparecidosStore = defineStore('desaparecidos', {
                     faixaIdadeFinal: 0,
                     faixaIdadeInicial: 0,
                     nome: '',
-                    porPagina: 10,
+                    porPagina: 12,
                     sexo: '',
                     status: 'DESAPARECIDO',
                     pagina: 0
@@ -23,7 +23,6 @@ export const useDesaparecidosStore = defineStore('desaparecidos', {
                 console.error('Erro ao buscar desaparecidos:', err)
             } finally {
                 this.loading = false
-                this.mockarDesaparecidos()
             }
         },
 
