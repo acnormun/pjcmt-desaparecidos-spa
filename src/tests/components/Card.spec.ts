@@ -1,4 +1,3 @@
-// tests/Card.spec.ts
 import { mount } from '@vue/test-utils'
 import Card from '../../components/Card.vue'
 import { describe, it, expect } from 'vitest'
