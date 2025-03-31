@@ -30,3 +30,17 @@ export interface FiltroDesaparecidos {
     pagina: number
 }
 
+export interface Informacao {
+    [
+    {
+        "ocoId": 0,
+        "informacao": "string",
+        "data": "2022-01-28",
+        "id": 0,
+        "anexos": [
+            "string"
+        ]
+    }
+    ]
+}
+
