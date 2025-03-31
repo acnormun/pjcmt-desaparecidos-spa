@@ -12,6 +12,12 @@
             <img :src="pessoa?.foto" class="rounded w-[300px] mx-auto md:mx-0" />
             <div class="p-2 flex-1">
                 <h2 class="text-2xl font-bold mb-2">{{ pessoa?.nome }}</h2>
+                <p class="inline-block text-md font-semibold px-2 py-1 my-2 rounded-full" :class="{
+                    'bg-red-100 text-red-700': !pessoa?.ultimaOcorrencia?.dataLocalizacao,
+                    'bg-green-100 text-green-700': pessoa?.ultimaOcorrencia?.dataLocalizacao
+                }">
+                    {{ pessoa?.ultimaOcorrencia?.dataLocalizacao ? 'Localizado' : 'Desaparecido' }}
+                </p>
                 <p><strong>Idade:</strong> {{ pessoa?.idade }}</p>
                 <p><strong>Sexo:</strong> {{ pessoa?.sexo }}</p>
                 <p>
@@ -21,7 +27,7 @@
                 <p><strong>Local:</strong> {{ pessoa?.ultimaOcorrencia?.localDesaparecimentoConcat }}</p>
                 <p><strong>Vestimentas:</strong> {{
                     pessoa?.ultimaOcorrencia?.ocorrenciaEntrevDesapDTO?.vestimentasDesaparecido }}</p>
-                <div class="mt-6 text-center">
+                <div v-if="!pessoa?.ultimaOcorrencia?.dataLocalizacao" class="mt-6 text-center">
                     <button class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
                         @click="handleInfoClick">
                         Você viu essa pessoa?
@@ -40,13 +46,13 @@ import InfoModal from '../components/InfoModal.vue'
 import { ref } from 'vue'
 import type { Informacao } from '../types/desaparecidos'
 import { enviarInformacao } from '../api/desaparecidos/requests'
-    const store = useDesaparecidosStore()
+const store = useDesaparecidosStore()
 const pessoa = store.selecionado
 const showInfoModal = ref(false)
 
 const handleInfoClick = () => {
     showInfoModal.value = true
-}   
+}
 
 const handleSubmit = (informacao: Informacao) => {
     if (pessoa?.id) {
