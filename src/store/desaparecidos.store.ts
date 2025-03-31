@@ -1,34 +1,51 @@
-import { defineStore } from 'pinia'
-import { buscarDesaparecidos } from '../api/desaparecidos/requests'
-import mock from '../mock.json'
+import { defineStore } from "pinia"
+import { buscarDesaparecidos } from "../api/desaparecidos/requests"
+import mock from "../mock.json"
+import type { Desaparecido, FiltroDesaparecidos } from "../types/desaparecidos"
+
 export const useDesaparecidosStore = defineStore('desaparecidos', {
     state: () => ({
         lista: [] as any[],
-        loading: false
+        loading: false,
+        pagina: 0,
+        totalPaginas: 0,
+        filtros: {
+            nome: '',
+            sexo: '',
+            status: 'DESAPARECIDO',
+            faixaIdadeInicial: 0,
+            faixaIdadeFinal: 0
+        },
+        selecionado: null as Desaparecido | null
     }),
     actions: {
-        async getDesaparecidos() {
+        async getDesaparecidos(pagina: number) {
             this.loading = true
+            this.pagina = pagina
             try {
-                this.lista = await buscarDesaparecidos({
-                    faixaIdadeFinal: 0,
-                    faixaIdadeInicial: 0,
-                    nome: '',
-                    porPagina: 10,
-                    sexo: '',
-                    status: 'DESAPARECIDO',
-                    pagina: 0
+                const data = await buscarDesaparecidos({
+                    ...this.filtros,
+                    porPagina: 12,
+                    pagina
                 })
-            } catch (err) {
-                console.error('Erro ao buscar desaparecidos:', err)
+                this.lista = data
+            } catch (e) {
+                console.error(e)
             } finally {
                 this.loading = false
-                this.mockarDesaparecidos()
             }
+        },
+
+        setFiltros(novosFiltros: Partial<FiltroDesaparecidos>) {
+            this.filtros = { ...this.filtros, ...novosFiltros }
+            this.getDesaparecidos(0)
         },
 
         mockarDesaparecidos() {
             this.lista = mock
+        },
+        setSelecionado(desaparecido: Desaparecido) {
+            this.selecionado = desaparecido
         }
     }
 })
