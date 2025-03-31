@@ -9,13 +9,14 @@
 import { onMounted, watch } from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-
+import { formatarDataHora } from '../utils/date'
 const props = defineProps<{
     desaparecidos: {
         nome: string
         idade: number
         ultimaOcorrencia: {
             localDesaparecimentoConcat: string
+            dtDesaparecimento: string
         }
     }[]
 }>()
@@ -44,6 +45,7 @@ const renderMap = async () => {
 
     for (const pessoa of props.desaparecidos) {
         const local = pessoa.ultimaOcorrencia?.localDesaparecimentoConcat
+        const data = formatarDataHora(pessoa.ultimaOcorrencia?.dtDesaparecimento || '') || ''
         if (local && !usados.has(local)) {
             usados.add(local)
             const coord = await geocode(local)
@@ -51,7 +53,8 @@ const renderMap = async () => {
                 L.marker(coord).addTo(map).bindPopup(`
             <strong>${pessoa.nome}</strong><br>
             Idade: ${pessoa.idade}<br>
-            Local: ${local}
+            Local: ${local},
+            Data: ${data}
           `)
             }
         }

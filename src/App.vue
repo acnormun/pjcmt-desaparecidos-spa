@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import logo from '../public/pjc_logo.svg?url'
+import logo from '/pjc_logo.svg?url'
 </script>
 
 <style scoped></style>
