@@ -28,6 +28,7 @@
             </button>
         </div>
         <Map :desaparecidos="list" />
+        <DashBoard />
     </div>
 </template>
 
@@ -39,6 +40,7 @@ import Filters from '../components/Filters.vue'
 import type { Desaparecido } from '../types/desaparecidos'
 import { useRouter } from 'vue-router'
 import Map from '../components/Map.vue'
+import DashBoard from '../components/Dashboard.vue'
 const store = useDesaparecidosStore()
 const list = computed(() => store.lista)
 const router = useRouter()

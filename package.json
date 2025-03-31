@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "axios": "^1.8.4",
+    "chart.js": "^4.4.8",
     "leaflet": "^1.9.4",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
+    "vue-chartjs": "^5.3.2",
     "vue-leaflet": "^0.1.0",
     "vue-router": "^4.5.0"
   },
