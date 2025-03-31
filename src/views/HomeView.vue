@@ -5,7 +5,7 @@
         <div v-if="store.loading" class="text-center py-10">Loading...</div>
 
         <div v-else class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            <Card v-for="person in list" :key="person.id" :desaparecido="person" />
+            <Card v-for="person in list" :key="person.id" :desaparecido="person" @click="handleSelect(person)" />
         </div>
 
         <div class="flex justify-center gap-2 mt-6 flex-wrap">
@@ -35,9 +35,12 @@ import { onMounted, computed } from 'vue'
 import { useDesaparecidosStore } from '../store/desaparecidos.store'
 import Card from '../components/Card.vue'
 import Filters from '../components/Filters.vue'
+import type { Desaparecido } from '../types/desaparecidos'
+import { useRouter } from 'vue-router'
 
 const store = useDesaparecidosStore()
 const list = computed(() => store.lista)
+const router = useRouter()
 
 onMounted(() => {
     store.getDesaparecidos(0)
@@ -80,4 +83,9 @@ const getPaginationRange = computed(() => {
 
     return rangeWithDots
 })
+
+const handleSelect = (person: Desaparecido) => {
+    store.setSelecionado(person)
+    router.push('/detalhes')
+}
 </script>

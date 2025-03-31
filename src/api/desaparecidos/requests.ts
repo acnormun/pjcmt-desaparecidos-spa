@@ -1,6 +1,6 @@
 import api from '../index'
 import { adaptarDesaparecido } from './adapters'
-import type { FiltroDesaparecidos } from '../../types/desaparecidos'
+import type { FiltroDesaparecidos, Informacao } from '../../types/desaparecidos'
 import { useDesaparecidosStore } from '../../store/desaparecidos.store'
 
 export const buscarDesaparecidos = async (filtro: FiltroDesaparecidos) => {
@@ -19,4 +19,9 @@ export const buscarDesaparecidos = async (filtro: FiltroDesaparecidos) => {
     store.totalPaginas = response.data.totalPages
 
     return response.data.content.map(adaptarDesaparecido)
+}
+
+export const enviarInformacao = async (id: string, informacao: Informacao) => {
+    const response = await api.post(`pessoas/${id}/informacao`, { informacao })
+    return response.data
 }
