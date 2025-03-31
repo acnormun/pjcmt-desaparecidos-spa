@@ -28,6 +28,11 @@
             </button>
         </div>
         <Map :desaparecidos="list" />
+
+        <footer class="text-center text-sm mt-6">
+            <p>Desenvolvido por <a href="https://github.com/acnormun" target="_blank"
+                    class="text-blue-500 hover:text-blue-700">Ana Clara Noronha</a></p>
+        </footer>
     </div>
 </template>
 
