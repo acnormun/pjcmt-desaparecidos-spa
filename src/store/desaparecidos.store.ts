@@ -1,6 +1,7 @@
 import { defineStore } from "pinia"
 import { buscarDesaparecidos } from "../api/desaparecidos/requests"
 import mock from "../mock.json"
+import type { Desaparecido, FiltroDesaparecidos } from "../types/desaparecidos"
 
 export const useDesaparecidosStore = defineStore('desaparecidos', {
     state: () => ({
@@ -14,7 +15,8 @@ export const useDesaparecidosStore = defineStore('desaparecidos', {
             status: 'DESAPARECIDO',
             faixaIdadeInicial: 0,
             faixaIdadeFinal: 0
-        }
+        },
+        selecionado: null as Desaparecido | null
     }),
     actions: {
         async getDesaparecidos(pagina: number) {
@@ -34,13 +36,16 @@ export const useDesaparecidosStore = defineStore('desaparecidos', {
             }
         },
 
-        setFiltros(novosFiltros: Partial<typeof this.filtros>) {
+        setFiltros(novosFiltros: Partial<FiltroDesaparecidos>) {
             this.filtros = { ...this.filtros, ...novosFiltros }
             this.getDesaparecidos(0)
         },
 
         mockarDesaparecidos() {
             this.lista = mock
+        },
+        setSelecionado(desaparecido: Desaparecido) {
+            this.selecionado = desaparecido
         }
     }
 })
