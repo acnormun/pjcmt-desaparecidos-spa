@@ -1,4 +1,6 @@
-# 🕵️‍♀️ Desaparecidos MT — SPA | SEPLAG-MT
+# 🕵️‍♀️ Desaparecidos MT — SPA | PSS 02/2025/SEPLAG (Analista de TI - Perfil Junior, Pleno e Sênior)
+
+Por: Ana Clara Noronha (CPF: 044.***.***-40)
 
 Aplicação Single Page Application desenvolvida como parte do desafio técnico da **Secretaria de Estado de Planejamento e Gestão de Mato Grosso (SEPLAG-MT)**.
 
