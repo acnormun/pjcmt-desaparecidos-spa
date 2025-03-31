@@ -4,23 +4,27 @@ import mock from '../mock.json'
 export const useDesaparecidosStore = defineStore('desaparecidos', {
     state: () => ({
         lista: [] as any[],
-        loading: false
+        loading: false,
+        pagina: 0,
+        totalPaginas: 0
     }),
     actions: {
-        async getDesaparecidos() {
+        async getDesaparecidos(pagina: number) {
             this.loading = true
+            this.pagina = pagina
             try {
-                this.lista = await buscarDesaparecidos({
+                const data = await buscarDesaparecidos({
                     faixaIdadeFinal: 0,
                     faixaIdadeInicial: 0,
                     nome: '',
                     porPagina: 12,
                     sexo: '',
                     status: 'DESAPARECIDO',
-                    pagina: 0
+                    pagina: pagina
                 })
-            } catch (err) {
-                console.error('Erro ao buscar desaparecidos:', err)
+                this.lista = data
+            } catch (e) {
+                console.error(e)
             } finally {
                 this.loading = false
             }
